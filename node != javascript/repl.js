@@ -5,4 +5,4 @@ const r = repl.start({
   replMode: repl.REPL_MODE_STRICT
 });
 
-r.context.lodash = require('lodash');
+r.context.lodash = require('lodash'); // đặt lodash vào context của repl, điều này có nghĩa là có thể sử dụng lodash trong repl
