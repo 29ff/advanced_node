@@ -19,3 +19,13 @@
 <p>Bạn có thể sử dụng lệnh <strong>node -p 'process.versions'</strong> để xem version của các dependency trong node</p>
 <p><strong>process.env</strong> là bản sao của môi trường của người dùng</p>
 <p>Bạn có thể xem môi trường của bạn bằng cách gõ <strong>env</strong> vào command line trong Linux hoặc <strong>set</strong> trong command line của window</p>
+<p>Vấn đề bạn cần phải nhớ ở đây là nếu như bạn thay đổi trực tiếp <strong>env</strong> bằng cách gán <strong>process.env</strong> thì có nghĩa rằng bạn đang thay đổi trực tiếp môi trường và điều này là không nên làm</p>
+<p>Nếu bạn muốn lấy một biến nào trong <strong>env</strong> thì bạn nên đặt tất cả các biến đó trong file config. Đây là một điều nên làm</p>
+
+<p><strong>process.release.lts</strong> là một tính năng thú vị trong Node</p>
+<p>Nếu như phiên bản Node bạn đang dùng là phiên bản LTS(Long Term Support) hoặc thấp hơn thì khi kiểm tra <strong>process.release.lts</strong> sẽ ra Codename của phiên bản đó còn nếu đó không phải là LTS version thì sẽ ra <strong>undefined</strong></p>
+<p>Một trong những thứ hay ho của <strong>process</strong> trong Node là chúng ta có thể giao tiếp với môi trường</p>
+<p>Để giao tiếp với môi trường, chúng ta sử dung <strong>stdin</strong> để đọc, <strong>stdout</strong> để in và <strong>stderr</strong> để hiển thị lỗi</p>
+
+<p>Đối tượng <strong>process</strong> là một thể hiện của <strong>EventEmitter</strong></p>
+<p>Điều này có nghĩa là chúng ta có thể emit và listen sự kiện trong <strong>process</strong></p>
