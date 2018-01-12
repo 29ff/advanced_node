@@ -43,3 +43,17 @@
 <p><strong>Buffer</strong> hữu ích khi chúng ta cần đọc những thứ như ảnh từ một <strong>TCP Stream</strong> hoặc là một file nén hoặc bất kỳ hình thức truy cập dữ liệu nhị phân nào khác</p>
 <p>Giống như array hoặc string, với Buffer chúng ta có thể sử dụng các hàm như <strong>includes</strong>, <strong>indexOf</strong> và <strong>slice</strong>. Nhưng sẽ có một số khác biệt với những phương thức này khi chúng ta sử dụng với Buffer</p>
 <p>Ví dụ: Khi chúng ta sử dụng slice để cắt một Buffer, Buffer đã được cắt sẽ chia sẻ cùng bộ nhớ với Buffer ban đầu (xem file <strong>buffer.slice.js</strong> trong folder buffer)</p>
+<p>Một ghi chú cuối cùng cho Buffer, khi convert stream của binary data, chúng ta có thể sử dụng module <strong>string_decoder</strong> bới vì nó xử lý kiểu dữ liệu multibyte tốt hơn, đặc biệt là dữ liệu multibyte không đầy đủ</p>
+<p><strong>string_decoder</strong> giữ những dữ liệu dạng multibyte và mã hóa nội bộ cho chúng cho đến khi nó hoàn thành và sau đó trả về kết quả. Trong khi phương thức <strong>toString()</strong> không làm được điều đó (xem ví dụ trong file <strong>StringDecoder.js</strong></p>
+<p>Vì vậy nếu như bạn nhận được ký tự <strong>utf8</strong> như <strong>chunk</strong> trong một <strong>stream</strong>, bạn luôn nên sử dụng StringDecoder</p>
+
+<h2>Require() và Module trong Node</h2>
+<p>Module là khái niệm lớp đầu tiên trong Node, và sự hiểu biết về cách thức hoạt động của module là điều bắt buộc</p>
+<p>Có hai khái niệm quan trọng trong module, và điều đầu tiên là <strong>require</strong> và <strong>require</strong> cũng là một đối tượng global</p>
+<p>Mỗi <strong>module</strong> sẽ lấy một <strong>require</strong> function của chính nó, và <strong>module</strong> cũng là một đối tượng global và được sử dụng để quản lý toàn bộ những module mà chúng ta đã gọi với function <strong>require</strong></p>
+<p>Thực hiện <strong>require</strong> trong Node khá đơn giản. Khi <strong>require</strong> một module trong Node, Node sẽ thực thi qua những bước sau:</p>
+<ul>
+  <li><strong>Resolving:</strong> tìm đường dẫn tuyệt đối tới module</li>
+  <li><strong>Loading:</strong> được xác định vào nội dung của tập tin dựa vào đường dẫn trong <strong>resolving</strong></li>
+  <li><strong>Wrapping:</strong> là quá trình đóng gói mỗi module cùng với scope của riêng nó, và cũng tạo nên <strong>require</strong> nội bộ tới mỗi module (câu này khó hiểu v~)</li>
+</ul>
