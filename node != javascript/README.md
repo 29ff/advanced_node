@@ -37,5 +37,5 @@
 <p>Bởi vì với dữ liệu <strong>Buffer</strong>, chúng ta không có bất cứ một kiểu encoding nào. Vì vậy để đọc được nó, chúng ta cần xác định một kiểu encoding cụ thể</p>
 <p><strong>Buffer</strong> là một kiểu dữ liệu bậc thấp trong cấu trúc dữ liệu đại diện của dữ liệu nhị phân. Và không giống như array, một khi <strong>Buffer</strong> được cấp phát trong bộ nhớ, nó không thể bị thay đổi</p>
 <p>Tạo Buffer từ có ba cách: <strong>Buffer.from(array|string)</strong>, <strong>Buffer.alloc(size)</strong>, <strong>Buffer.allocUnsafe(size)</strong></p>
-<p>Sự khác nhau giữa <strong>Buffer.alloc()</strong> và <strong>Buffer.allocUnsafe()</strong> là với <strong>Buffer.alloc()</strong> thì buffer này đã được fill còn <strong>Buffer.allocUnsafe()</strong> thì <strong>Buffer</strong> chưa được fill</p>
+<p>Sự khác nhau giữa <strong>Buffer.alloc()</strong> và <strong>Buffer.allocUnsafe()</strong> là với <strong>Buffer.alloc()</strong> thì Buffer này đã được fill còn <strong>Buffer.allocUnsafe()</strong> thì Buffer chưa được fill</p>
 <p>Để fill một <strong>Buffer</strong> thì dùng <Buffer>.fill()</p>
