@@ -31,8 +31,11 @@
 <p>Đối tượng <strong>process</strong> là một thể hiện của <strong>EventEmitter</strong>. Điều này có nghĩa là chúng ta có thể emit và listen sự kiện trong <strong>process</strong></p>
 
 <h3>Buffer</h3>
-<p>Buffer là một đối tượng được sử dụng thường xuyên trong Node và được sử dụng với dòng dữ liệu nhị phân</p>
-<p>Một Buffer thực chất là một phần của bộ nhớ được cấp bên ngoài V8 và chúng ta có thể đưa dữ liệu vào đó</p>
+<p><strong>Buffer</strong> là một đối tượng được sử dụng thường xuyên trong Node và được sử dụng với dòng dữ liệu nhị phân</p>
+<p>Một <strong>Buffer</strong> thực chất là một phần của bộ nhớ được cấp bên ngoài V8 và chúng ta có thể đưa dữ liệu vào đó</p>
 <p>Data đó có thể được thông dịch bằng rất nhiều cách dựa vào ecoding</p>
-<p>Bởi vì với dữ liệu Buffer, chúng ta không có bất cứ một kiểu encoding nào. Vì vậy để đọc được nó, chúng ta cần xác định một kiểu encoding cụ thể</p>
-<p>Buffer là một kiểu dữ liệu bậc thấp trong cấu trúc dữ liệu đại diện của dữ liệu nhị phân. Và không giống như array, một khi Buffer được cấp phát trong bộ nhớ, nó không thể bị thay đổi</p>
+<p>Bởi vì với dữ liệu <strong>Buffer</strong>, chúng ta không có bất cứ một kiểu encoding nào. Vì vậy để đọc được nó, chúng ta cần xác định một kiểu encoding cụ thể</p>
+<p><strong>Buffer</strong> là một kiểu dữ liệu bậc thấp trong cấu trúc dữ liệu đại diện của dữ liệu nhị phân. Và không giống như array, một khi <strong>Buffer</strong> được cấp phát trong bộ nhớ, nó không thể bị thay đổi</p>
+<p>Tạo Buffer từ có ba cách: <strong>Buffer.from(array|string)</strong>, <strong>Buffer.alloc(size)</strong>, <strong>Buffer.allocUnsafe(size)</strong></p>
+<p>Sự khác nhau giữa <strong>Buffer.alloc()</strong> và <strong>Buffer.allocUnsafe()</strong> là với <strong>Buffer.alloc()</strong> thì buffer này đã được fill còn <strong>Buffer.allocUnsafe()</strong> thì <strong>Buffer</strong> chưa được fill</p>
+<p>Để fill một <strong>Buffer</strong> thì dùng <Buffer>.fill()</p>
