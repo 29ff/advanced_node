@@ -29,6 +29,7 @@
 <p>Một trong những thứ hay ho của <strong>process</strong> trong Node là chúng ta có thể giao tiếp với môi trường</p>
 <p>Để giao tiếp với môi trường, chúng ta sử dung <strong>stdin</strong> để đọc, <strong>stdout</strong> để in và <strong>stderr</strong> để hiển thị lỗi</p>
 <p>Đối tượng <strong>process</strong> là một thể hiện của <strong>EventEmitter</strong>. Điều này có nghĩa là chúng ta có thể emit và listen sự kiện trong <strong>process</strong></p>
+<em>Có thể xem trong thư mục <strong>process</strong> để  xem demo về event trong process</em>
 
 <h3>Buffer</h3>
 <p><strong>Buffer</strong> là một đối tượng được sử dụng thường xuyên trong Node và được sử dụng với dòng dữ liệu nhị phân</p>
@@ -38,4 +39,7 @@
 <p><strong>Buffer</strong> là một kiểu dữ liệu bậc thấp trong cấu trúc dữ liệu đại diện của dữ liệu nhị phân. Và không giống như array, một khi <strong>Buffer</strong> được cấp phát trong bộ nhớ, nó không thể bị thay đổi</p>
 <p>Tạo Buffer từ có ba cách: <strong>Buffer.from(array|string)</strong>, <strong>Buffer.alloc(size)</strong>, <strong>Buffer.allocUnsafe(size)</strong></p>
 <p>Sự khác nhau giữa <strong>Buffer.alloc()</strong> và <strong>Buffer.allocUnsafe()</strong> là với <strong>Buffer.alloc()</strong> thì Buffer này đã được fill còn <strong>Buffer.allocUnsafe()</strong> thì Buffer chưa được fill</p>
-<p>Để fill một <strong>Buffer</strong> thì dùng <Buffer>.fill()</p>
+<p>Để fill một <strong>Buffer</strong> thì dùng {Buffer}.fill()</p>
+<p><strong>Buffer</strong> hữu ích khi chúng ta cần đọc những thứ như ảnh từ một <strong>TCP Stream</strong> hoặc là một file nén hoặc bất kỳ hình thức truy cập dữ liệu nhị phân nào khác</p>
+<p>Giống như array hoặc string, với Buffer chúng ta có thể sử dụng các hàm như <strong>includes</strong>, <strong>indexOf</strong> và <strong>slice</strong>. Nhưng sẽ có một số khác biệt với những phương thức này khi chúng ta sử dụng với Buffer</p>
+<p>Ví dụ: Khi chúng ta sử dụng slice để cắt một Buffer, Buffer đã được cắt sẽ chia sẻ cùng bộ nhớ với Buffer ban đầu (xem file <strong>buffer.slice.js</strong> trong folder buffer)</p>
