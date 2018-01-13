@@ -62,4 +62,9 @@
 <p>Trong các thành phần của module, trường <strong>id</strong> là trường dùng để định danh module, vì đối tượng module ở mỗi file là khác nhau. Thường thì trường <strong>id</strong> này sẽ là đường dẫn tuyệt đối đến file. Nếu như file đó là root, <strong>id</strong> sẽ là dấu '.'</p>
 <p>Một trong những trường quan trọng trong module đó là <strong>paths</strong></p>
 <p>Trường <strong>paths</strong> bao gồm tất cả các đường dẫn đến thư mục <strong>node_modules</strong></p>
-<p>Khi Node tiến hành <strong>require</strong> một module, Node sẽ tìm kiếm module đó trong tất cả các đường dẫn có trong <strong>paths</strong>. Nếu không tìm thấy, Node sẽ trả về một lỗi <strong>`Can not found module ...`</strong></p>
+<p>Khi require một module có trong <strong>file system</strong>, bước <strong>resolving sẽ trả về ngay lập tức</strong></p>
+<p>Khi require module không có trong <strong>file system</strong>, Node sẽ tìm kiếm module đó trong tất cả các đường dẫn có trong <strong>paths</strong>. Nếu không tìm thấy, Node sẽ trả về một lỗi <strong>`Can not found module ...`</strong></p>
+<p>Vì <strong>node_modules</strong> có quan hệ 1 - 1 với <strong>file system</strong>(fs) nên khi require một module có trong <strong>node_modules</strong> sẽ giống như require một module có trong <strong>file system</strong> của Node</p>
+
+<p>Việc <strong>require</strong> trong Node thực chất là tải nội dung của một file vào trong bộ nhớ</p>
+<p>Khi thực hiện require file A trong file B, nội dung của file A sẽ được load và thực thi khi file B được chạy. Hoặc có thể sử dụng <strong>require.resolve(<file name>)</strong>. Chức năng của <strong>require.resolve</strong> giống với chức năng của <strong>require</strong>, chỉ khác ở một điểm <strong>require.resolve</strong> không load nội dung của file. Sử dụng <strong>require.resolve</strong> vẫn sẽ trả về lỗi nếu file đó không tồn tại. Chính vì vậy <strong>require.resolve</strong> thường được sử dụng để kiểm tra file hoặc module có tồn tại hay không.</p>
