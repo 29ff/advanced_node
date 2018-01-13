@@ -56,4 +56,10 @@
   <li><strong>Resolving:</strong> tìm đường dẫn tuyệt đối tới module</li>
   <li><strong>Loading:</strong> được xác định vào nội dung của tập tin dựa vào đường dẫn trong <strong>resolving</strong></li>
   <li><strong>Wrapping:</strong> là quá trình đóng gói mỗi module cùng với scope của riêng nó, và cũng tạo nên <strong>require</strong> nội bộ tới mỗi module (câu này khó hiểu v~)</li>
+  <li><strong>Caching:</strong> là quá trình cache lại module, nghĩa là sau này bạn có require module đó một lần nữa thì nó sẽ không thực hiện lại từ bước đầu</li>
 </ul>
+<p>Để biết trong <strong>module</strong> có gì, bạn có thể log đối tượng module đó ra trong file bất kì, hoặc đơn giản là in ra     module trong <strong>REPL</strong></p>
+<p>Trong các thành phần của module, trường <strong>id</strong> là trường dùng để định danh module, vì đối tượng module ở mỗi file là khác nhau. Thường thì trường <strong>id</strong> này sẽ là đường dẫn tuyệt đối đến file. Nếu như file đó là root, <strong>id</strong> sẽ là dấu '.'</p>
+<p>Một trong những trường quan trọng trong module đó là <strong>paths</strong></p>
+<p>Trường <strong>paths</strong> bao gồm tất cả các đường dẫn đến thư mục <strong>node_modules</strong></p>
+<p>Khi Node tiến hành <strong>require</strong> một module, Node sẽ tìm kiếm module đó trong tất cả các đường dẫn có trong <strong>paths</strong>. Nếu không tìm thấy, Node sẽ trả về một lỗi <strong>`Can not found module ...`</strong></p>
