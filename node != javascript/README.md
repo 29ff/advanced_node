@@ -68,3 +68,9 @@
 
 <p>Việc <strong>require</strong> trong Node thực chất là tải nội dung của một file vào trong bộ nhớ</p>
 <p>Khi thực hiện require file A trong file B, nội dung của file A sẽ được load và thực thi khi file B được chạy. Hoặc có thể sử dụng <strong>require.resolve(<file name>)</strong>. Chức năng của <strong>require.resolve</strong> giống với chức năng của <strong>require</strong>, chỉ khác ở một điểm <strong>require.resolve</strong> không load nội dung của file. Sử dụng <strong>require.resolve</strong> vẫn sẽ trả về lỗi nếu file đó không tồn tại. Chính vì vậy <strong>require.resolve</strong> thường được sử dụng để kiểm tra file hoặc module có tồn tại hay không.</p>
+
+<h2>JSON and C++ addons</h2>
+<p>Khi require một file, <strong>Node</strong> sẽ tìm kiếm những file có định dạng <strong>.js</strong>. Nếu không thể tìm thấy bất kì file <strong>.js</strong> nào, Node sẽ tìm file có định dạng <strong>.json</strong>. Và nếu không tìm thấy file nào dạng <strong>.json</strong>, nó sẽ tìm sang những file có dạng <strong>.node</strong> và kết thúc</p>
+<p>Khi load một file dạng <strong>JSON</strong>, Node sẽ parse file đó như là JSON text</p>
+<p>Có một lời khuyên khi require các file không phải file Javascript, đó là bạn nên đặt <strong>extension</strong> của nó vào trong require. Ví dụ <strong>`const config = require('./config.json')`</strong>. Mặc dù không đặt extension của file, Node vẫn có thể tìm kiếm được file đó nhưng chúng ta sẽ khó khăn khi đọc code vì không biết đang import file JSON</p>
+<p>Những file có định dạng <strong>.node</strong> là những file được build từ addon của Node. Chúng ta có thể viết addon cho Node dựa vào hướng dẫn trên trang chủ <a href="https://nodejs.org/dist/latest-v8.x/docs/api/addons.html"><strong>C++ Addons</strong></a></p>
