@@ -74,3 +74,19 @@
 <p>Khi load một file dạng <strong>JSON</strong>, Node sẽ parse file đó như là JSON text</p>
 <p>Có một lời khuyên khi require các file không phải file Javascript, đó là bạn nên đặt <strong>extension</strong> của nó vào trong require. Ví dụ <strong>`const config = require('./config.json')`</strong>. Mặc dù không đặt extension của file, Node vẫn có thể tìm kiếm được file đó nhưng chúng ta sẽ khó khăn khi đọc code vì không biết đang import file JSON</p>
 <p>Những file có định dạng <strong>.node</strong> là những file được build từ addon của Node. Chúng ta có thể viết addon cho Node dựa vào hướng dẫn trên trang chủ <a target="_blank" href="https://nodejs.org/dist/latest-v8.x/docs/api/addons.html"><strong>C++ Addons</strong></a></p>
+
+<h2>Wrapping and Caching a module</h2>
+
+<h3>Wrapping in Node</h3>
+<p>Trước khi Node compile một module, Node sẽ đặt code của module đó trong một function, và đó là function <strong>wrapper</strong>. Bạn có thể kiểm tra bằng cách gõ dòng lệnh <strong>`require('module').wrapper`</strong> trong REPL</p>
+<p>Function này có 5 tham số, <strong>exports</strong>, <strong>require</strong>, <strong>module</strong>, <strong>__filename</strong> và <strong>__dirname</strong></p>
+<p>Quá trình đóng gói này nhằm đóng gói lại scope của module và có thể sử dụng trong bất cứ module nào gọi đến nó. Chúng khiến cho module,exports, require xuất hiện giống như là global nhưng thực ra những biến đó khác nhau với mỗi module. Tất cả những tham số này được cung cấp bởi <strong>wrapper</strong> trong Node</p>
+<p>Để thấy được các tham số trong file hiện tại bạn có thể log ra <strong>arguments</strong>(xem file wrapper trong folder wrapper)</p>
+
+<p><strong>Require</strong> trong Node khá đơn giản, chúng chỉ tìm module dựa vào tên hoặc path, sau đó trả về exports object. Bạn cũng có thể ghi đè lên function require mặc định(xem file require trong folder wrapper). Bạn có thể ghi đè lên require nhằm mục đích testing</p>
+<p>Bạn cũng có thể xem thêm ví dụ trong file<strong>printStar.js</strong> để hiểu thêm về <strong>require</strong></p>
+
+<h3>Caching in Node</h3>
+<p>Caching cũng là một điều quan trọng cần phải nhớ và hiểu ở trong Node</p>
+<p>Xem ví dụ trong folder wrapper(hai file caching.js và example.js)</p>
+<p>Bạn có thể xem cache của file bằng cách <strong>`console.log('require.cache')`</strong></p>

@@ -1,0 +1,1 @@
+console.log(arguments); // đây là những tham số trong function wrapper mà bạn có thể thấy
