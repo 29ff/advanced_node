@@ -90,3 +90,23 @@
 <p>Caching cũng là một điều quan trọng cần phải nhớ và hiểu ở trong Node</p>
 <p>Xem ví dụ trong folder wrapper(hai file caching.js và example.js)</p>
 <p>Bạn có thể xem cache của file bằng cách <strong>`console.log('require.cache')`</strong></p>
+
+<h2>Know your NPM</h2>
+<p>NPM không phải là thứ có trong Node. Nó chỉ là một thứ hỗ trợ quản lý các package của Node</p>
+<p>Nếu bạn chỉ muốn xem package được install thế nào thì bạn sẽ thêm tham số <strong>`--dry-run`</strong> vào trong câu lệnh install. Ví dụ <strong>`npm install --dry-run express`</strong> sẽ thực hiện thông báo những gì sẽ cài đặt trong <strong>express</strong> !</p>
+<p>Để xem những package nào đã được cài đặt ở global, bạn có thể dùng lệnh <strong>`npm ls -g`</strong>. Câu lệnh trên sẽ hiển thị toàn bộ các global package và cả các dependency của nó. Nghĩa là cả các cấp con của nó. Nếu bạn chỉ muốn hiển thị ra cấp lớn nhất, nghĩa là chỉ hiển thị tên của các package được install mà không hiển thị các dependency, bạn có thể thêm tham số <strong>`--depth=0`</strong> nghĩa là câu lệnh sẽ thành <strong>`npm ls -g --depth=0`</strong></p>
+<p>Nếu bạn muốn xem thông tin chi tiết hơn về các global package thì chỉ cần thay thế <strong>ls</strong> thành <strong>ll</strong>, nghĩa là sử dụng lệnh <strong>`npm ll -g --depth=0`</strong></p>
+<p>Nếu bạn muốn output của lệnh trên ở dạng <strong>JSON</strong> để bạn có thể sử dụng thì chỉ cần thêm tham số <strong>`--json`</strong>. Ví dụ: <strong>`npm ls -g --depth=0 --json`</strong></p>
+<p>Nếu bạn muốn xem những package nào đang dùng phiên bản cũ, bạn có thể kiểm tra bằng lệnh <strong>`npm outdated`</strong>. Bạn có thể thêm tham số <strong>`-g`</strong> để kiểm tra những global package đã bị outdate</p>
+<p>Bạn cũng có thể kiểm tra config của <strong>npm</strong> bằng lệnh <strong>`npm config list -l`</strong></p>
+<p>Bạn có thể thay đổi config của <strong>npm</strong> bằng lệnh <strong>`npm config set {key}={value}`</strong>. Hoặc cũng có thể delete một config bằng lệnh <strong>`npm config delete {key}`</strong></p>
+<p>Để mặc định khi install một package sẽ có tham số <strong>`--save`</strong>, chúng ta có thể set trong config bằng lệnh <strong>`npm config set save true`</strong></p>
+<p>Bạn có thể tìm kiếm package trong <strong>npm</strong> bằng lệnh <strong>`npm search {name}`</strong></p>
+<p>Một số những trick hay trong <strong>npm</strong>:</p>
+<ul>
+  <li>Lệnh <strong>`npm home {name}`</strong> dùng để mở homepage của package trên trình duyệt (so coollll)</li>
+  <li>Lệnh <strong>`npm repo {name}`</strong> dùng để mở repository của package</li>
+  <li>Nếu bạn có một package đã được install trong <strong>node_modules</strong> nhưng lại không có trong file <strong>package.json</strong> và bạn đang muốn xóa bỏ tất cả những package như vậy trong <strong>node_modules</strong>, bạn chỉ cần dùng lệnh <strong>`npm prune`</strong></li>
+  <li>Lệnh <strong>`npm visnup`</strong> hiển thị mặt ông này <strong>Visnu Pitiyanuvath</strong> =))</li>
+  <li>Lệnh <strong>`npm xmas`</strong> hiển thị cây thông noel (coollll :v)</li>
+</ul>
