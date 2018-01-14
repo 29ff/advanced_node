@@ -89,7 +89,7 @@
 <h3>Caching in Node</h3>
 <p>Caching cũng là một điều quan trọng cần phải nhớ và hiểu ở trong Node</p>
 <p>Xem ví dụ trong folder wrapper(hai file caching.js và example.js)</p>
-<p>Bạn có thể xem cache của file bằng cách <strong>`console.log('require.cache')`</strong></p>
+<p>Bạn có thể xem cache của file bằng cách <strong>`console.log(require.cache)`</strong></p>
 
 <h2>Know your NPM</h2>
 <p>NPM không phải là thứ có trong Node. Nó chỉ là một thứ hỗ trợ quản lý các package của Node</p>
