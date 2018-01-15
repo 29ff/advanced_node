@@ -107,6 +107,6 @@
   <li>Lệnh <strong>`npm home {name}`</strong> dùng để mở homepage của package trên trình duyệt (so coollll)</li>
   <li>Lệnh <strong>`npm repo {name}`</strong> dùng để mở repository của package</li>
   <li>Nếu bạn có một package đã được install trong <strong>node_modules</strong> nhưng lại không có trong file <strong>package.json</strong> và bạn đang muốn xóa bỏ tất cả những package như vậy trong <strong>node_modules</strong>, bạn chỉ cần dùng lệnh <strong>`npm prune`</strong></li>
-  <li>Lệnh <strong>`npm visnup`</strong> hiển thị mặt ông này <strong>Visnu Pitiyanuvath</strong> =))</li>
+  <li>Lệnh <strong>`npm visnup`</strong> hiển thị avatar ông này <strong>Visnu Pitiyanuvath</strong> =))</li>
   <li>Lệnh <strong>`npm xmas`</strong> hiển thị cây thông noel (coollll :v)</li>
 </ul>
