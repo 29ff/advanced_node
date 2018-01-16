@@ -12,3 +12,9 @@
 <h2>Event loop in Node</h2>
 <p>Sự định nghĩa về <strong>Event loop</strong> khá dễ hiểu: <strong>Event loop là một thực thể để xử lý những sự kiện bên ngoài và chuyển chúng vào trong lời gọi callback</strong></p>
 <p>Hoặc một định nghĩa khác cũng dễ hiểu không kém: <strong>Event loop là một vòng lặp chọn ra những sự kiện từ event queue và đẩy chúng vào callback trong callstack</strong></p>
+<p>Oke, để bắt tay vào tìm hiểu <strong>Event Loop</strong> thì trước hết bạn cần hiểu đó là có một thứ gọi là <strong>Event Loop</strong> và Node sẽ tự động start nó khi thực thi script, vì vậy chúng ta không cần start bằng tay =))</p>
+<p>Vòng lặp(event loop) này sẽ làm cho lời gọi callback trong lập trình bất đồng bộ trở lên khả thi</p>
+<p>Node sẽ thoát khỏi vòng lặp này khi không còn lời gọi callback nào cần thực thi</p>
+<p><em>Xem hình <strong>EventLoop.png</strong> trong folder Event Loop</em></p>
+<img src='/EventLoop.png'>
+<p>Để hiểu vòng lặp event loop thì phải hiểu được những thứ hoạt động cùng với nó tạo nên cách Node xử lý các tiến trình bất đồng bộ(hình trên)</p>
