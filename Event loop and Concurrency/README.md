@@ -15,6 +15,5 @@
 <p>Oke, để bắt tay vào tìm hiểu <strong>Event Loop</strong> thì trước hết bạn cần hiểu đó là có một thứ gọi là <strong>Event Loop</strong> và Node sẽ tự động start nó khi thực thi script, vì vậy chúng ta không cần start bằng tay =))</p>
 <p>Vòng lặp(event loop) này sẽ làm cho lời gọi callback trong lập trình bất đồng bộ trở lên khả thi</p>
 <p>Node sẽ thoát khỏi vòng lặp này khi không còn lời gọi callback nào cần thực thi</p>
-<p><em>Xem hình <strong>EventLoop.png</strong> trong folder Event Loop</em></p>
 <img src='https://github.com/29ff/advanced_node/blob/master/Event%20loop%20and%20Concurrency/EventLoop.png'>
 <p>Để hiểu vòng lặp event loop thì phải hiểu được những thứ hoạt động cùng với nó tạo nên cách Node xử lý các tiến trình bất đồng bộ(hình trên)</p>
