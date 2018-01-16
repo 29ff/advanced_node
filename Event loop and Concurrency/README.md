@@ -23,7 +23,7 @@
 <p>Nó cũng cung cấp <strong>Event Queue</strong> và <strong>Event Loop</strong> sử dụng thư việc <strong>libuv</strong></p>
 <p><strong>Event Loop</strong> là một vòng lặp đơn giản và nó làm việc giữa <strong>Event Queue</strong> và <strong>Call stack</strong>. Nhưng chúng ta muốn hiểu được <strong>Event loop</strong> thì cũng cần phải hiểu được <strong>Call stack</strong> hay <strong>Event queue</strong> là gì!</p>
 
-<h3>Call stack</h3>
+<h2>Call stack</h2>
 <p><strong>Call stack</strong> là một danh sách các functions. Một stack là một <strong>`first in last out`</strong> trong cấu trúc dữ liệu (cái này không biết có thể google)</p>
 <p> Phần tử trên cùng chúng ta có thể đẩy chúng ra khỏi stack là phần tử cuối cùng được đẩy vào trong stack</p>
 <img src='https://github.com/29ff/advanced_node/blob/master/Images/CallStack.png'>
@@ -32,3 +32,27 @@
 <p><strong>Call stack</strong> sẽ bắt đầu với lời gọi <strong>IIFE</strong>. Nó là một anonymous function và nó sẽ định nghĩa các functions khác và trong trường hợp này nó sẽ thực thi function <strong>printDouble</strong>. Tiếp theo function <strong>printDouble</strong> được đẩy vào stack, sau đó là function <strong>double</strong>, sau đó là function <strong>add</strong>. Function <strong>add</strong> được thực thi và trả về kết quả, sau đó thì được đẩy ra khỏi stack. lần lượt như vậy đến khi kết qủa cuối cùng được đẩy về function <strong>printDouble</strong> và thực hiện console.log. Sau khi log xong thì function <strong>printDouble</strong> được đẩy ra khỏi stack và cuối cùng là đẩy function <strong>IIFE</strong> ra khỏi stack và kết thúc</p>
 <p><strong>Call stack</strong> không chỉ xuất hiện trong Node, có thể bạn cũng đã từng thấy nó trên trình duyệt. Hoặc bất cứ khi nào bạn nhận được một lỗi xuất hiện trên console, console sẽ hiển thị <strong>call stack</strong>. Ví dụ như khi thay đổi biến <strong>a</strong> ở ví dụ trên thành biến <strong>x</strong> chưa được định nghĩa. Console Browser sẽ báo lỗi như hình dưới, và đó cũng là <strong>Call stack</strong>:</p>
 <img src='https://github.com/29ff/advanced_node/blob/master/Images/CallStack3.png'>
+<p>Còn nếu bạn gọi đệ quy một function như lại không có điều kiện để function đó thoát khỏi đệ quy, đó là lúc <strong>Call stack</strong> sẽ bị đầy và sẽ báo lỗi(hình dưới)</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/CallStack4.png'>
+
+<h2>Handling Slow Operations</h2>
+<p>Những gì chúng ta thực hiện ở phía trên điều là những function được xử lý rất nhanh. Sẽ không có vấn đề gì nếu chúng được đẩy vào callstack và được thực hiện lần lượt. Nhưng khi chúng ta bắt đầu thực hiện những function mất nhiều thời gian hơn, lúc này chúng ta sẽ thấy hạn chế của <strong>single threaded</strong> bởi vì khi chúng ta thực hiện những tác vụ mất nhiều thời gian, những tác vụ khác sẽ bị block. Dưới đây là một ví dụ về vấn đề đó:</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/SlowOperations.png'>
+<p>Đó là lý do <strong>Event loop</strong> được sinh ra để giải quyết vấn đề này</p>
+
+
+<h2>How Callbacks Work</h2>
+<p>Node API được thiết kế xung quanh <strong>Call back</strong>. Chúng ta dùng một function như là một tham số của một function khác. Và những function được đẩy vào làm tham số đó sẽ được thực thi phía sau những function khác bằng một cách nào đó. Ví dụ nếu chúng ta thay đổi function <strong>slowAdd</strong> đưa ra kết quả trong <strong>setTimeout</strong> sau 5 giây. Function đầu tiên được truyền vào <strong>setTimeout</strong> là một callback function và nó sẽ được thực thi sau 5 giây. Vậy thì <strong>Call stack</strong> sẽ xử lý những function callback thế nào ?</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback.png'>
+<p>Như hình trên function IIFE sẽ được đẩy vào callstack đầu tiên. Sau đó là function <strong>slowAdd</strong>, và tiếp theo là <strong>setTimeout</strong>, function <strong>setTimeout</strong> không gọi đến bất cứ function nào nhưng nó có một function như là một tham số, sau khi setTimeout được đẩy vào nó sẽ ngay lập tức bị đẩy ra. Và tại thời điểm đó, <strong>slowAdd</strong> cũng kết thúc và được đẩy ra khỏi callstack. Sau đó function <strong>slowAdd</strong> thứ 2 được đẩy vào</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback2.png'>
+<p>Và lại giống như <strong>slowAdd</strong> đầu tiên, nó lại đẩy <strong>setTimeout</strong> vào và ngay lập tức bị đẩy ra, và kết thúc function <strong>slowAdd</strong> và cuối cùng đẩy function <strong>IIFE</strong> ra khỏi callstack</p>
+<p>Thế nhưng bằng cách nào đó, sau 5 giây <strong>console.log(6)</strong> được đẩy vào callstack</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback3.png'>
+<p>Và ngay sau đó <strong>console.log(8)</strong> được đẩy vào callstack</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback4.png'>
+
+<p>Và để hiểu cách mà 2 dòng <strong>console.log</strong> cuối lại được đẩy vào callstack, chúng ta sẽ cùng nhìn rộng hơn bằng hình ảnh dưới</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback5.png'>
+
+<p>Điều đầu tiên chúng ta cần phải hiểu đó là một lời gọi API giống như <strong>setTimeout</strong> không phải là một phần của V8. Nó được cung cấp bởi bản thân Node, cũng giống như việc nó được cung cấp bởi trình duyệt. Đó là lý do vì sao cách hoạt động của nó khá lạ strong callstack thông thường</p>
