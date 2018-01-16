@@ -20,8 +20,8 @@
 <p>V8 có <strong>Stack</strong>(ngăn chứa) và <strong>Heap</strong></p>
 <p><strong>Heap</strong> thì đơn giản, nó là nơi objects được lưu trữ trong bộ nhớ. Về cơ bản bộ nhớ đó được phân bổ bởi máy ảo cho nhiều tasks khác nhau. Ví dụ khi chúng ta thực thi một function, một khu vực trong <strong>Heap</strong> được phân bổ để thực thi như là local scope của function đó</p>
 <p>Cả <strong>Stack</strong> và <strong>Heap</strong> đều là một phần của run-time engine, không phải chỉ là của Node. Node thêm vào những API như là <strong>`timers`</strong>, <strong>`emitters`</strong> và <strong>`wrappers`</strong> bên ngoài những tính toán của hệ điều hành</p>
-<p>Nó cũng cung cấp <strong>Event Queue</strong> và <strong>Event Loop</strong> sử dụng thư việc <strong>libuv</strong></p>
-<p><strong>Event Loop</strong> là một vòng lặp đơn giản và nó làm việc giữa <strong>Event Queue</strong> và <strong>Call stack</strong>. Nhưng chúng ta muốn hiểu được <strong>Event loop</strong> thì cũng cần phải hiểu được <strong>Call stack</strong> hay <strong>Event queue</strong> là gì!</p>
+<p>Nó cũng cung cấp <strong>event queue</strong> và <strong>Event Loop</strong> sử dụng thư việc <strong>libuv</strong></p>
+<p><strong>Event Loop</strong> là một vòng lặp đơn giản và nó làm việc giữa <strong>event queue</strong> và <strong>Call stack</strong>. Nhưng chúng ta muốn hiểu được <strong>Event loop</strong> thì cũng cần phải hiểu được <strong>Call stack</strong> hay <strong>event queue</strong> là gì!</p>
 
 <h2>Call stack</h2>
 <p><strong>Call stack</strong> là một danh sách các functions. Một stack là một <strong>`first in last out`</strong> trong cấu trúc dữ liệu (cái này không biết có thể google)</p>
@@ -56,3 +56,43 @@
 <img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback5.png'>
 
 <p>Điều đầu tiên chúng ta cần phải hiểu đó là một lời gọi API giống như <strong>setTimeout</strong> không phải là một phần của V8. Nó được cung cấp bởi bản thân Node, cũng giống như việc nó được cung cấp bởi trình duyệt. Đó là lý do vì sao cách hoạt động của nó khá lạ strong callstack thông thường</p>
+
+<p>Hãy bắt đầu với <strong>event queue</strong>, như tên gọi của nó, nó là một ngăn chưa events. Khi chúng ta chứa một event trong queue, chúng ta sẽ chứa một function khác được gọi là callback. Một queue có cấu trúc dữ liệu kiểu <strong>first in first out</strong>. Vì vậy sự kiện đầu tiên nằm trong ngăn chứa sẽ cũng là sự kiện đầu tiên bị đẩy ra khỏi ngăn chứa. Để đẩy một event ra khỏi ngăn chứa và thực thi nó, chúng ta chỉ cần thực thi function liên kết với nó. Việc thực thi một function sẽ đẩy function đó vào callstack. Vì vậy với ví dụ trên chúng ta sẽ có một <strong>IIFE</strong> function và function slowAdd như hình dưới</p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback6.png'>
+
+<p>Sau đó setTimeout được đẩy vào với tham số đầu tiên là callback, tham số thứ 2 là 5 giây</p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback7.png'>
+
+<p>Function callback trong setTimeout trên thực chất là một anonymous function. Trong trường hợp này, Node sẽ nhìn thấy một cuộc gọi đến setTimeout API và ngay lập tức tạo một timer bên ngoài Javascript runtime</p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback8.png'>
+
+<p>Sau đó như đã nói ở trên, ngay sau đó setTimeout sẽ bị đẩy ra khỏi callstack, function slowAdd cũng được thực thi và bị đẩy ra khỏi callstack. Tiếp theo function addSlow thứ 2 được đẩy vào và tiếp theo là setTimeout của function thứ 2</p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback9.png'>
+
+<p>Sau đó, setTimeout cũng đẩy ra một callback function thứ 2. Ngay lập tức setTimeout sẽ bị đẩy ra khỏi callstack, sau đó là function addSlow và cuối cùng là function <strong>IIFE</strong></p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback10.png'>
+
+<p>Cuối cùng sau 5 giây, callback 1 và callback 2 sẽ được đẩy vào <strong>event queue</strong></p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback11.png'>
+
+<p>Sau đó nhiệm vụ của <strong>event loop</strong> là lắng nghe sự kiện trong <strong>event queue</strong>. <strong>Event loop</strong> sẽ kiểm tra khi và chỉ khi <strong>callstack</strong> trống và <strong>event queue</strong> có event đang chờ thì <strong>event loop</strong> sẽ phải đẩy lần lượt những event này vào <strong>callstack</strong>. Và nhiệm vụ của <strong>callstack</strong> là thực thi chúng. <strong>Event loop</strong> sẽ đẩy lần lượt các event đến khi nào <strong>event queue</strong> không còn event nào cả</p>
+
+<p>Trong trường hợp trên, <strong>event loop</strong> sẽ đẩy callback 1 lên <strong>callstack</strong>, callback 1 sẽ gọi đến <strong>`console.log(6)`</strong></p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback12.png'>
+
+<p>Hàm log sẽ được <strong>callstack</strong> thực thi ngay lập tức và đẩy ra khỏi <strong>callstack</strong>. Function callback 1 cũng thực thi xong và đẩy ra khỏi <strong>callstack</strong>. Lúc này <strong>event loop</strong> lại nhận thấy <strong>callstack</strong> đang trống và <strong>event queue</strong> thì có callback 2 đang chờ. <strong>Event loop</strong> sẽ lại đẩy callback 2 vào <strong>callstack</strong> và thực thi</p>
+
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/Callback13.png'>
+
+<p><strong>console.log(8)</strong> được thực thi và bị đẩy ra, sau đó là function callback 2 và cuối cùng là kết thúc chương trình</p>
+
+<p>Tất cả các Node APIs đều được thực thi với mô hình trên. Một vài tiến trình sẽ xử lý I/O bất đồng bộ, theo dõi callback và khi nó done thì đẩy nó vào <strong>event queue</strong>. Nếu chúng ta không cẩn thận về tổng số event chúng ta đẩy vào <strong>event queue</strong>, chúng ta có thể làm cho <strong>event queue</strong> bị quá tải. Việc đó sẽ khiến cả <strong>callstack</strong> và <strong>event queue</strong> luôn luôn làm việc</p>
+
+<p>Là một Node developer, phía trên là những điều vô cùng quan trọng chúng ta cần phải hiểu và nhớ về blocking và non-blocking code</p>
