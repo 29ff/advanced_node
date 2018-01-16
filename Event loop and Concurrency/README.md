@@ -16,4 +16,17 @@
 <p>Vòng lặp(event loop) này sẽ làm cho lời gọi callback trong lập trình bất đồng bộ trở lên khả thi</p>
 <p>Node sẽ thoát khỏi vòng lặp này khi không còn lời gọi callback nào cần thực thi</p>
 <img src='https://github.com/29ff/advanced_node/blob/master/Images/EventLoop.png'>
-<p>Để hiểu vòng lặp event loop thì phải hiểu được những thứ hoạt động cùng với nó tạo nên cách Node xử lý các tiến trình bất đồng bộ(hình trên)</p>
+<p>Để hiểu vòng lặp <strong>Event loop</strong> thì phải hiểu được những thứ hoạt động cùng với nó tạo nên cách Node xử lý các tiến trình bất đồng bộ(hình trên)</p>
+<p>V8 có <strong>Stack</strong>(ngăn chứa) và <strong>Heap</strong></p>
+<p><strong>Heap</strong> thì đơn giản, nó là nơi objects được lưu trữ trong bộ nhớ. Về cơ bản bộ nhớ đó được phân bổ bởi máy ảo cho nhiều tasks khác nhau. Ví dụ khi chúng ta thực thi một function, một khu vực trong <strong>Heap</strong> được phân bổ để thực thi như là local scope của function đó</p>
+<p>Cả <strong>Stack</strong> và <strong>Heap</strong> đều là một phần của run-time engine, không phải chỉ là của Node. Node thêm vào những API như là <strong>`timers`</strong>, <strong>`emitters`</strong> và <strong>`wrappers`</strong> bên ngoài những tính toán của hệ điều hành</p>
+<p>Nó cũng cung cấp <strong>Event Queue</strong> và <strong>Event Loop</strong> sử dụng thư việc <strong>libuv</strong></p>
+<p><strong>Event Loop</strong> là một vòng lặp đơn giản và nó làm việc giữa <strong>Event Queue</strong> và <strong>Call stack</strong>. Nhưng chúng ta muốn hiểu được <strong>Event loop</strong> thì cũng cần phải hiểu được <strong>Call stack</strong> hay <strong>Event queue</strong> là gì!</p>
+
+<h3>Call stack</h3>
+<p><strong>Call stack</strong> là một danh sách các functions. Một stack là một <strong>`first in last out`</strong> trong cấu trúc dữ liệu (cái này không biết có thể google)</p>
+<p> Phần tử trên cùng chúng ta có thể đẩy chúng ra khỏi stack là phần tử cuối cùng được đẩy vào trong stack</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/CallStack.png'>
+<p>Xem hình trên có thể thấy function f1 sẽ được thực thi đầu tiên, vì vậy nó sẽ được đẩy vào callstack đầu tiên, tiếp theo là f2, f3, ... . Vì JavaScript là single threaded nên nó chỉ có một <strong>Call stack</strong> và nó chỉ có thể làm được một việc trong cùng một khoảng thời gian. Khi chúng ta gọi nhiều functions, chúng sẽ được sắp xếp lần lượt vào <strong>Call stack</strong> và cũng được thực thi lần lượt. Điều đó cũng đúng khi chúng ta sử dụng đệ quy</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Images/CallStack2.png'>
+<p><strong>Call stack</strong> sẽ bắt đầu với lời gọi <strong>IIFE</strong>. Nó là một anonymous function và nó sẽ định nghĩa các functions khác và trong trường hợp này nó sẽ thực thi function <strong>printDouble</strong>. Tiếp theo function <strong>printDouble</strong> được đẩy vào stack, sau đó là function <strong>double</strong>, sau đó là function <strong>add</strong>. Function <strong>add</strong> được thực thi và trả về kết quả, sau đó thì được đẩy ra khỏi stack. lần lượt như vậy đến khi kết qủa cuối cùng được đẩy về function <strong>printDouble</strong> và thực hiện console.log. Sau khi log xong thì function <strong>printDouble</strong> được đẩy ra khỏi stack và cuối cùng là đẩy function <strong>IIFE</strong> ra khỏi stack và kết thúc</p>
