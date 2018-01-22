@@ -103,4 +103,15 @@
 
 <p>Event loop trong Node bao gồm nhiều giai đoạn. Những <strong>timers</strong> chạy trong một trong những giai đoạn bên dưới trong khi da phần các tính toán I/O chạy qua những giai đoạn khác</p>
 
-<p>Node có một <strong>timers</strong> đặc biệt - setImmediate. setImmediate sẽ chạy trong một giai đoạn tách biệt trong event loop</p>
+<img src='https://github.com/29ff/advanced_node/blob/master/Event%20loop%20and%20Concurrency/Images/setImmediate.png'>
+
+<p>Node có một <strong>timers</strong> đặc biệt - setImmediate. setImmediate sẽ chạy trong một giai đoạn tách biệt trong event loop. Nó gần giống như việc chạy setTimeout với 0s, ngoại trừ một số trường hợp, setImmediate sẽ ưu tiên chạy trước so với setTimeout 0s (chạy file setImmediate.js). Chúng ta nên sử dụng setImmediate khi chúng ta muốn thực thi một thứ gì đó trong <strong>next tick</strong> trong event loop</p>
+
+<p>Node có một trong process là <strong>process.nextTick</strong> api. Nó rất giống với setImmediate nhưng Node thực ra sẽ không thực thi callback của nó trong <strong>next tick</strong> trong event loop. Vì vậy tên của nó có thể sẽ gây hiểu nhầm.</p>
+
+<p><strong>process.nextTick</strong> thực ra không phải là một phần của event loop và nó cũng không quan tâm đến những giai đoạn của event loop </p>
+
+<p>Node xử lý những callback đăng ký với nextTick sau khi tiến trình hiện tại được hoàn thành và trước khi event loop tiếp tục. Điều này vừa hữu ích nhưng cũng vừa nguy hiểm. Vì vậy hãy cẩn thận khi dùng nó. Đặc biệt là khi dùng đệ quy process.nextTick</p>
+
+<p>Một trong những ví dụ về việc sử dụng process.nextTick một cách hợp lý là việc sử dụng process.nextTick để tạo ra một function tiêu chuẩn (chạy file nextTick.js)</p>
+
