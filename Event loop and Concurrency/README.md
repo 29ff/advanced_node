@@ -96,3 +96,11 @@
 <p>Tất cả các Node APIs đều được thực thi với mô hình trên. Một vài tiến trình sẽ xử lý I/O bất đồng bộ, theo dõi callback và khi nó done thì đẩy nó vào <strong>event queue</strong>. Nếu chúng ta không cẩn thận về tổng số event chúng ta đẩy vào <strong>event queue</strong>, chúng ta có thể làm cho <strong>event queue</strong> bị quá tải. Việc đó sẽ khiến cả <strong>callstack</strong> và <strong>event queue</strong> luôn luôn làm việc</p>
 
 <p>Là một Node developer, phía trên là những điều vô cùng quan trọng chúng ta cần phải hiểu và nhớ về blocking và non-blocking code</p>
+
+<h2>setImmediate and process.nextTick</h2>
+
+<p>Điều gì sẽ xảy ra nếu như thời gian chờ là 0 giây ? Mọi thứ diễn ra tương tự như phía trên. Hàm setTimeout vẫn sẽ đẩy ra một callback vào Node và sau đó ngay lập tức được chuyển đến event queue vì thời gian chờ là 0 giây. Và sau đó vẫn phải đợi callstack trống thì các callback mới được đẩy lên callstack. Đó là lý do vì sao mặc dù thời gian chờ là 0 giây nhưng các tiến trình async vẫn chạy sau nhưng tiến trình sync</p>
+
+<p>Event loop trong Node bao gồm nhiều giai đoạn. Những <strong>timers</strong> chạy trong một trong những giai đoạn bên dưới trong khi da phần các tính toán I/O chạy qua những giai đoạn khác</p>
+
+<p>Node có một <strong>timers</strong> đặc biệt - setImmediate. setImmediate sẽ chạy trong một giai đoạn tách biệt trong event loop</p>
