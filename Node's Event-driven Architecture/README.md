@@ -36,3 +36,32 @@
 <p>Emitting một sự kiện là một dấu hiệu cho thấy một vài thứ đã xảy ra. Những thứ này thường là một sự thay đổi trạng thái trong đối tượng phát ra. Chúng ta có thể thêm chức năng listen sự kiện bằng cách sử dụng phương thức <strong>on</strong> và chức năng listen chỉ đơn giản là thực hiện mỗi khi  nhận được một sự kiện mà có tên là tên mà phương thức nhận vào. Chúng ta có thể xem hình dưới đây để hiểu hơn:</p>
 
 <img src="https://github.com/29ff/advanced_node/blob/master/Node's%20Event-driven%20Architecture/images/eventemitter1.png">
+
+<p>Chúng ta cùng xem ví dụ dưới đây (cũng có trong file sync-events.js)</p>
+
+<script>
+const EventEmitter = require('events');
+
+class WithLog extends EventEmitter {
+  execute(taskFunc) {
+    console.log('Before executing');
+    this.emit('begin');
+    taskFunc();
+    this.emit('end');
+    console.log('After executing');
+  }
+}
+
+const withLog = new WithLog;
+
+withLog.on('begin', () => { console.log('About to execute') });
+withLog.on('end', () => { console.log('Done with execute') });
+
+withLog.execute(() => { console.log('*** Executing task ***') });
+</script>
+
+<p>Trong ví dụ trên, class WithLog là một EventEmitter, nó định nghĩa một function là <strong>execute</strong>, function này nhận vào một <strong>taskFunc</strong> và đóng gói tất cả những thực thi lại và log chúng ra. Nó trả về các sự kiện trước và sau khi thực thi, và chúng ta sẽ thử chạy file để xem nhận lại được kết quả như thế nào (thử chạy file sync-events.js)</p>
+
+<p>Khi bạn chạy file trên bạn sẽ nhận thấy rằng tất cả đều chạy đồng bộ. Vì vậy giống như callback, không nên cho rằng event emitter là đồng bộ hay bất đồng bộ. Vậy khi chúng ta chuyển function <strong>taskFunc</strong> sang async bằng hàm setTimeout thì sao? Kết quả sẽ không giống như chúng ta mong đợi. Dòng <strong>*** Executing task ***</strong> được in ra sau cùng. Vậy nếu chúng ta muốn thực thi một vài dòng code sau khi hàm async kết thúc thì phải làm thế nào? Chúng ta có thể sử dụng callback truyền thống hoặc sử dụng promise</p>
+
+<p>Một lợi ích của việc sử dụng event thay vì callback là chúng ta có thể thực thi nhiều hành động khác nhau với cùng một sự kiện bằng cách định nghĩa nhiều listener. Để làm điều tương tự với callback, chúng ta bắt buộc phải viết thêm logic code bên trong hàm callback. Event là một cách tuyệt vời để dùng cho những ứng dụng cho phép nhiều plugin bên trong xây dựng lên lõi của ứng dụng. Bạn có thể nghĩ về chúng như là một điểm móc cho phép tùy biến những hành động xung quanh một sự kiện nào đó</p>
