@@ -20,3 +20,19 @@
 <p>Thêm một promise interface làm cho code của bạn dễ đọc hơn rất nhiều khi chúng ta có một vòng lặp bên ngoài một async function. Với callback, mọi thứ sẽ trở lên rất lộn xộn. Nhưng cách phổ biến nhất bây giờ khi làm việc với async code đó là sử dụng async (xem file async-async-await.js). Để sử dụng async-await bạn phải sử dụng phiên bản Node từ v7.6 trở lên</p>
 
 <p>Khi sử dụng async, code async của bạn sẽ giống như trở thành sync code và trở lên rất dễ đọc.</p>
+
+<h2>Event Emitter</h2>
+
+<p>Event Emitter là một module trong Node. Nó tạo điều kiện cho các đối tượng trong Node giao tiếp với nhau</p>
+
+<p>Event Emitter nằm ở trong core của kiến trúc hướng sự kiện bất đồng bộ trong Node</p>
+
+<p>Rất nhiều những module có sẵn trong Node được kế thừa từ Event Emitter. Cách Event Emitter hoạt động rất đơn giản, nó emit tên của một sự kiện mà listener có thể gọi đến</p>
+
+<p>Một event emitter có hai tính năng chính, phát ra tên của một sự kiện, và đăng kí listener function</p>
+
+<p>Để sử dụng event emitter, chúng ta chỉ cần tạo một class được kế thừa từ Event Emitter. Sau đó, chúng ta sẽ tạo mới một EventEmitter từ class được kế thừa. Tại  bất cứ điểm nào trong vòng đời của chúng, chúng ta có thể sử dụng emit function để emit bất cứ sự kiện nào mà chúng ta muốn</p>
+
+<p>Emitting một sự kiện là một dấu hiệu cho thấy một vài thứ đã xảy ra. Những thứ này thường là một sự thay đổi trạng thái trong đối tượng phát ra. Chúng ta có thể thêm chức năng listen sự kiện bằng cách sử dụng phương thức <strong>on</strong> và chức năng listen chỉ đơn giản là thực hiện mỗi khi  nhận được một sự kiện mà có tên là tên mà phương thức nhận vào. Chúng ta có thể xem hình dưới đây để hiểu hơn:</p>
+
+
