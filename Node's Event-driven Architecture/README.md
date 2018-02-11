@@ -35,4 +35,4 @@
 
 <p>Emitting một sự kiện là một dấu hiệu cho thấy một vài thứ đã xảy ra. Những thứ này thường là một sự thay đổi trạng thái trong đối tượng phát ra. Chúng ta có thể thêm chức năng listen sự kiện bằng cách sử dụng phương thức <strong>on</strong> và chức năng listen chỉ đơn giản là thực hiện mỗi khi  nhận được một sự kiện mà có tên là tên mà phương thức nhận vào. Chúng ta có thể xem hình dưới đây để hiểu hơn:</p>
 
-
+<img src="https://github.com/29ff/advanced_node/blob/master/Node's%20Event-driven%20Architecture/images/eventemitter1.png">
