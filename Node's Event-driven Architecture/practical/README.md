@@ -10,4 +10,4 @@ Chúng ta sẽ làm cho nó hỗ trợ 4 **command**, **help** để hiển th�
 
 Trong file client.js, chúng ta cần đọc input từ người dùng, vì vậy chúng ta cần require module **readline**, chúng ta sẽ tạo một giao diện với một input và output stream, chúng ta sẽ sử dụng **process standard in** và **process standard out**. **Event emitter** trong ở phía client sẽ đơn giản
 
-[img]: https://github.com/29ff/advanced_node/blob/master/Node's%20Event-driven%20Architecture/images/argumenterrorandlistener10.png
+<img src="https://github.com/29ff/advanced_node/blob/master/Node's%20Event-driven%20Architecture/images/practical1.png">
