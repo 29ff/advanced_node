@@ -29,7 +29,7 @@
 <p><strong>Call stack</strong> là một danh sách các functions. Một stack là một <strong>first in last out</strong> trong cấu trúc dữ liệu (cái này không biết có thể google)</p>
 <p> Phần tử trên cùng chúng ta có thể đẩy chúng ra khỏi stack là phần tử cuối cùng được đẩy vào trong stack</p>
 
-![Image](/Images/CallStack.png)
+![Image](/2:%20Event%20loop%20and%20Concurrency/Images/CallStack.png)
 
 <p>Xem hình trên có thể thấy function f1 sẽ được thực thi đầu tiên, vì vậy nó sẽ được đẩy vào callstack đầu tiên, tiếp theo là f2, f3, ... . Vì JavaScript là single threaded nên nó chỉ có một <strong>Call stack</strong> và nó chỉ có thể làm được một việc trong cùng một khoảng thời gian. Khi chúng ta gọi nhiều functions, chúng sẽ được sắp xếp lần lượt vào <strong>Call stack</strong> và cũng được thực thi lần lượt. Điều đó cũng đúng khi chúng ta sử dụng đệ quy</p>
 
