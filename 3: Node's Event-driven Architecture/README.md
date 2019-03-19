@@ -35,7 +35,7 @@
 
 <p>Emitting một sự kiện là một dấu hiệu cho thấy một vài thứ đã xảy ra. Những thứ này thường là một sự thay đổi trạng thái trong đối tượng phát ra. Chúng ta có thể thêm chức năng listen sự kiện bằng cách sử dụng phương thức <strong>on</strong> và chức năng listen chỉ đơn giản là thực hiện mỗi khi  nhận được một sự kiện mà có tên là tên mà phương thức nhận vào. Chúng ta có thể xem hình dưới đây để hiểu hơn:</p>
 
-![Image](/images/eventemitter1.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/eventemitter1.png)
 
 <p>Chúng ta cùng xem ví dụ dưới đây (cũng có trong file sync-events.js)</p>
 
@@ -70,46 +70,46 @@ withLog.execute(() => { console.log('*** Executing task ***') });
 
 <p>Trong ví dụ trước, chúng ta có 2 sự kiện được đăng kí. Sự kiện <strong>error</strong> với object <strong>err</strong></p>
 
-![Image](/images/argumenterrorandlistener1.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener1.png)
 
 <p>và sự kiện <strong>data</strong> được đăng kí với object <strong>data</strong></p>
 
-![Image](/images/argumenterrorandlistener2.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener2.png)
 
 <p>Chúng ta có thể sử dụng bao nhiêu tham số tùy thích vào trong những sự kiện đã đặt tên. Tất cả những tham số đó đều nhận được trong function listener. Ví dụ, để làm việc với sự kiện <strong>data</strong>, chúng ta sẽ tạo một function listener, function này nhận vào tham số <strong>data</strong> mà chúng ta đã truyền vào từ sự kiện đã được đăng kí. Data này chính là nội dung đọc được từ file</p>
 
-![Image](/images/argumenterrorandlistener3.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener3.png)
 
 <p>Một trong những sự kiện đặc biệt nữa đó là sự kiện<strong>error</strong>. <strong>Error</strong> là một sự kiện đặc biệt, vì nếu chúng ta không lắng nghe nó với một listener, node process sẽ bị thoát khi gặp lỗi. Để làm rõ vấn đề này, chúng ta sẽ có 2 lần thực thi phương thức <strong>execute</strong> và lần thực thi đầu tiên sẽ báo lỗi với một đường dẫn sai như hình dưới</p>
 
-![Image](/images/argumenterrorandlistener4.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener4.png)
 
 <p>Với lần thực thi đầu tiên, node process sẽ bị thoát đột ngột. Để tránh điều này, chúng ta cần một listener cho sự kiện <strong>error</strong></p>
 
-![Image](/images/argumenterrorandlistener5.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener5.png)
 
 <p>Khi lắng nghe sự kiện <strong>error</strong>, chúng ta sẽ log lỗi ra console và tiếp tục thực thi phương thức <strong>execute</strong> lần thứ 2. Bạn có thể nhận thấy lần thực thi thứ 2 vẫn được diễn ra, do vậy, node process đã không bị crash khi gặp lỗi ở lần thực thi đầu</p>
 
 <p>Có một cách khác để thực hiện lắng nghe sự kiện lỗi khiến cho node process bị crash, đó là lắng nghe sự kiện <strong>uncaughtException</strong> trong <strong>process</strong>. Và điều này cho kết quả tương tự như khi lắng nghe sự kiện <strong>error</strong></p>
 
-![Image](/images/argumenterrorandlistener6.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener6.png)
 
 <p>Hai cách thì gần như là giống nhau, nhưng có một lưu ý khi sử dụng lắng nghe <strong>uncaughtException</strong> đó là chúng ta vẫn nên để node process thoát ra với <strong>process.exit(1)</strong>. Vì vậy, khi sử dụng lắng nghe <strong>uncaughtException</strong>, chúng ta nên thực hiện một vài dọn dẹp ở server và sau đó để server thoát ra một cách an toàn</p>
 
-![Image](/images/argumenterrorandlistener7.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener7.png)
 
 <p>Tuy nhiên, hãy tưởng tượng rằng có nhiều sự kiện lỗi xảy ra, điều này có nghĩa là listener của sự kiện <strong>uncaughtException</strong> sẽ được thực thi nhiều lần, điều đó có thể là vấn đề với việc chúng ta dọn dẹp trước khi thoát node process. Event Emitter có phương thức <strong>once</strong> thay vì <strong>on</strong> để lắng nghe sự kiện chỉ một lần</p>
 
-![Image](/images/argumenterrorandlistener8.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener8.png)
 
 <p>Đó là một cách sử dụng thực tế khi lắng nghe <strong>uncaughtException</strong> vì chúng ta sẽ thực hiện dọn dẹp và thoát khỏi node process ngay từ lần lắng nghe đầu tiên</p>
 
 <p>Nếu chúng ta đăng kí nhiều listener cho một sự kiện, thì các listener này sẽ được thực thi theo thứ tự</p>
 
-![Image](/images/argumenterrorandlistener9.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener9.png)
 
 <p>Nếu chúng ta tạo ra một listener mới, nhưng chúng ta muốn listener đó được thực thi đầu tiên, chúng ta có thể sử dụng phương thức<strong>prependListener</strong></p>
 
-![Image](/images/argumenterrorandlistener10.png)
+![Image](/3:%20Node's%20Event-driven%20Architecture/images/argumenterrorandlistener10.png)
 
 <p>Nếu muốn xóa một listener, chúng ta có thể sử dụng phương thích <strong>removeListener</strong></p>
